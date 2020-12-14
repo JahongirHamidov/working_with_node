@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const BotcampSchema = new mongoose.Schema({
+const BootcampSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Please add a name'],
@@ -40,11 +40,11 @@ const BotcampSchema = new mongoose.Schema({
         type: {
             type: String,
             enum: ['Point'],
-            required: true
+            required: false
         },
         coordinates: {
             type: [Number],
-            required: true,
+            //required: true,
             index: '2dsphere'
         },
         formattedAddress: String,
@@ -59,8 +59,8 @@ const BotcampSchema = new mongoose.Schema({
         type: [String],
         required: true,
         enum: [
-            'Web development',
-            'Mobile development',
+            'Web Development',
+            'Mobile Development',
             'UI/UX',
             'Data Science',
             'Business',
@@ -72,9 +72,7 @@ const BotcampSchema = new mongoose.Schema({
         min: [1, 'Rating must be least 1'],
         max: [10, 'Rating must can not be more than 10']
     },
-    averageCost: {
-        type: Number
-    },
+    averageCost:  Number,
     photo: {
         type:String,
         default: 'no-photo.jpg'
