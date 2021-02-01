@@ -2,6 +2,8 @@ const express = require('express')
 
 const {
     getReviews,
+    getReview,
+    createReview,
 
 } = require('../controllers/reviews')
 
@@ -17,5 +19,8 @@ router
         path: 'bootcamp',
         select: 'name description'
     }), getReviews)
+    .post(protect, authorize('admin', 'user'), createReview)
+
+router.route('/:id').get(getReview)
 
 module.exports = router
