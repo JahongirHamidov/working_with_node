@@ -2,10 +2,13 @@ const path = require('path')
 const express = require('express')
 const dotenv = require('dotenv')
 const morgan = require('morgan')
+var colors = require('colors');
 const fileUpload = require('express-fileupload')
 const cookieParser = require('cookie-parser')
+const mongoSanitize = require('express-mongo-sanitize')
+const helmet = require('helmet')
+const xss = require('xss-clean')
 const connectDB = require('./config/db')
-var colors = require('colors');
 const errorHandler = require('./middleware/error')
 //Load env vars
 dotenv.config({path:'./config/config.env'})
@@ -35,6 +38,15 @@ if(process.env.NODE_ENV === 'development'){
 
 //File uploader 
 app.use(fileUpload())
+
+// Sanitizing data
+app.use(mongoSanitize())
+
+// Set security headers
+app.use(helmet())
+
+// Prevent XSS attacks
+app.use(xss())
 
 // Set static folder
 app.use(express.static(path.join(__dirname,'public')))
